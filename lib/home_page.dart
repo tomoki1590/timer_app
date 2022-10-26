@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:timer_image_app/timer.dart';
+
+import 'image.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -7,8 +10,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('専用タイマーアプリ')),
-      body: Column(),
+      appBar: AppBar(title: const Text('あなたの時間')),
+      body: Column(
+        children: [
+          ClockTimer(),
+        ],
+      ),
       floatingActionButton: SpeedDial(
         icon: Icons.list,
         backgroundColor: Colors.green,
@@ -29,7 +36,11 @@ class HomePage extends StatelessWidget {
             child: const Icon(Icons.image),
             label: 'imge',
             backgroundColor: Colors.green,
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return  ImagePage();
+              }));
+            },
           ),
         ],
       ),

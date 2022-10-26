@@ -1,68 +1,40 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class Flowmenu extends StatefulWidget {
-  const Flowmenu({Key? key}) : super(key: key);
-
+class ClockTimer extends StatefulWidget {
   @override
-  State<Flowmenu> createState() => _FlowmenuState();
+  State<StatefulWidget> createState() {
+    return _ClockTimerState();
+  }
 }
 
-class _FlowmenuState extends State<Flowmenu> {
+class _ClockTimerState extends State<ClockTimer> {
+  String _time = '';
+
+  @override
+  void initState() {
+    super.initState();
+
+    /// Timer.periodic は繰り返し実行する時に使うメソッド
+    Timer.periodic(Duration(seconds: 1), _onTimer);
+  }
+
+  void _onTimer(Timer timer) {
+    /// 現在時刻を取得する
+    var now = DateTime.now();
+
+    /// 「時:分:秒」表記に文字列を変換するdateFormatを宣言する
+    var dateFormat = DateFormat('HH:mm:ss');
+
+    /// nowをdateFormatでstringに変換する
+    var timeString = dateFormat.format(now);
+    setState(() => {_time = timeString});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('hello')),
-      body: Flow(
-          delegate: MyFlowDelegate(),
-          children: const [Icon(Icons.add), Icon(Icons.home)]),
-    );
+    return Text(_time);
   }
 }
-
-@override
-State<StatefulWidget> createState() {
-  // TODO: implement createState
-  throw UnimplementedError();
-}
-
-class MyFlowDelegate extends FlowDelegate {
-  @override
-  void paintChildren(FlowPaintingContext context) {}
-  @override
-  bool shouldRepaint(covariant FlowDelegate oldDelegatet) {
-    throw UnimplementedError();
-  }
-}
-
-
-// class Flowmenu extends StatefulWidget {
-//   Flowmenu({Key? key}) : super(key: key);
-
-//   @override
-//   State<Flowmenu> createState() => _FlowmenuState();
-// }
-
-// class _FlowmenuState extends State<Flowmenu> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Flow(
-//         delegate: MyFlowDelegate(),
-//         children: [Icon(Icons.add), Icon(Icons.home)]);
-//   }
-// }
-
-// @override
-// State<StatefulWidget> createState() {
-//   // TODO: implement createState
-//   throw UnimplementedError();
-// }
-
-// class MyFlowDelegate extends FlowDelegate {
-//   @override
-//   void paintChildren(FlowPaintingContext context) {}
-//   @override
-//   bool shouldRepaint(covariant FlowDelegate oldDelegatet) {
-//     throw UnimplementedError();
-//   }
-// }

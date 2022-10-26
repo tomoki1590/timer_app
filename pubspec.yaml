@@ -37,6 +37,8 @@ dependencies:
   cupertino_timer: ^1.0.2
   slide_countdown: ^0.3.4
   flutter_speed_dial: ^6.2.0
+  intl: ^0.17.0
+  image_picker: ^0.8.6
 
 dev_dependencies:
   flutter_test:
