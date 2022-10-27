@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:timer_image_app/timer.dart';
 
+import 'countup.dart';
 import 'image.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,6 +15,7 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: [
           ClockTimer(),
+          CountUp(),
         ],
       ),
       floatingActionButton: SpeedDial(
@@ -38,7 +40,7 @@ class HomePage extends StatelessWidget {
             backgroundColor: Colors.green,
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return  ImagePage();
+                return const ImagePage();
               }));
             },
           ),

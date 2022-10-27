@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'countdown.dart';
+import 'countup.dart';
 import 'home_page.dart';
 
 void main() {
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'TimerApp',
-      home: const HomePage(),
+      home:  CountDown(),
     );
   }
 }
