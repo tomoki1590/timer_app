@@ -10,16 +10,13 @@ class CountDown extends StatefulWidget {
 }
 
 class _CountDownState extends State<CountDown> {
-  static const maxMinutes = 60;
-  static const maxSeconds = 60;
-  int minutes = maxMinutes;
-  int secounds = maxSeconds;
+  int maxSeconds = 60;
+  int secounds = 60;
   Timer? timer;
 
   void resetTimer() {
     setState(() {
       secounds = maxSeconds;
-      minutes = maxMinutes;
     });
   }
 
@@ -63,6 +60,7 @@ class _CountDownState extends State<CountDown> {
   Widget buildButtons() {
     final isRunning = timer == null ? false : timer!.isActive;
     final isCompleated = secounds == maxSeconds || secounds == 0;
+    final timeController = TextEditingController();
 
     return isRunning || !isCompleated
         ? Row(
@@ -82,18 +80,30 @@ class _CountDownState extends State<CountDown> {
                 onPressed: () {
                   stopTimer();
                 },
-                child: const Text('cancel'),
-              ),
+                child: const Text('reset'),
+              )
             ],
           )
-        : ElevatedButton(
-            onPressed: () {
-              startTimer();
-            },
-            child: const Text('start'));
+        : Column(
+            children: [
+              TextField(
+                //Textを用いて秒数を決定
+                decoration: const InputDecoration(
+                    hintText: '秒数を入力してください', filled: true),
+                keyboardType: TextInputType.number,
+                controller: timeController,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    maxSeconds = int.parse(timeController.text);
+                    startTimer();
+                  },
+                  child: const Text('start')),
+            ],
+          );
   }
 
   Widget buildTime() {
-    return Text('$minutes' ":" '$secounds');
+    return Text('$secounds');
   }
 }
