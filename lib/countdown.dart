@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_picker/flutter_picker.dart';
 
 class CountDown extends StatefulWidget {
   const CountDown({super.key});
@@ -42,22 +42,18 @@ class _CountDownState extends State<CountDown> with WidgetsBindingObserver {
   //   tz.setLocalLocation(tz.getLocation(currentTimeZone!));
   // }
 
-  // Future<void> _notification() async {
-
+  // @override
+  // void dispose() {
+  //   WidgetsBinding.instance.removeObserver(this);
+  //   super.dispose();
   // }
 
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      FlutterAppBadger.removeBadge();
-    }
-  }
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   if (state == AppLifecycleState.resumed) {
+  //     FlutterAppBadger.removeBadge();
+  //   }
+  // }
 
   int maxSeconds = 0;
   int secounds = 0;
@@ -103,25 +99,37 @@ class _CountDownState extends State<CountDown> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          Center(child: buildTime()),
-          Center(child: buildButtons()),
-          // TextButton(
-          //     onPressed: () async {
-          //       Picker(
-          //           adapter:
-          //               DateTimePickerAdapter(type: PickerDateTimeType.kHMS),
-          //           title: const Text("時間を設定してください"),
-          //           onConfirm: (Picker picker, List value) {
-          //             setState(() {
-          //               DateTime.utc(0, 0, 0);
-          //             });
-          //           }).showModal(context);
-          //     },
-          //     child: const Text('設定'))
+      appBar: AppBar(
+        actions: [
+          TextButton(
+              onPressed: () async {
+                Picker(
+                    adapter: DateTimePickerAdapter(
+                        type: PickerDateTimeType.kHMS, value: timerTime),
+                    title: const Text("時間を設定してください"),
+                    onConfirm: (Picker picker, List value) {
+                      setState(() {
+                        timerTime =
+                            DateTime.utc(0, 0, 0, value[0], value[1], value[2]);
+                      });
+                    }).showModal(context);
+              },
+              child: const Text(
+                '設定',
+                style: TextStyle(color: Colors.black),
+              )),
         ],
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            buildTime(),
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: buildButtons(),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -182,11 +190,14 @@ class _CountDownState extends State<CountDown> with WidgetsBindingObserver {
   }
 
   Widget buildTime() {
-    return Column(
-      children: [
-        Text('$secounds'),
-        Text(DateFormat.Hms().format(timerTime)),
-      ],
+    return Center(
+      child: Column(
+        children: [
+          Text('$secounds'),
+          Text(DateFormat.Hms().format(timerTime),
+              style: const TextStyle(fontSize: 20)),
+        ],
+      ),
     );
   }
 }

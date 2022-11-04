@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:timer_image_app/countup.dart';
 import 'package:timer_image_app/timer.dart';
 
 import 'countdown.dart';
 import 'image.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required String title}) : super(key: key);
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -17,8 +20,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('あなたの時間')),
-      body: Column(
-        children: [ClockTimer(), const Text('erro')],
+      body: Center(
+        child: Column(
+          children: const [
+            Text('現在時刻'),
+            ClockTimer(),
+          ],
+        ),
       ),
       floatingActionButton: SpeedDial(
         icon: Icons.list,
@@ -26,21 +34,25 @@ class _HomePageState extends State<HomePage> {
         children: [
           SpeedDialChild(
             child: const Icon(Icons.watch),
-            label: '時間設定',
+            label: 'タイマー',
             backgroundColor: Colors.green,
             onTap: () {
-              const CountDown();
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const CountDown();
+              }));
             },
           ),
           SpeedDialChild(
             child: const Icon(Icons.music_note),
-            label: 'music',
+            label: 'ストップウォッチ',
             backgroundColor: Colors.green,
-            onTap: () {},
+            onTap: () {
+              const CountUp();
+            },
           ),
           SpeedDialChild(
             child: const Icon(Icons.image),
-            label: 'imge',
+            label: '休憩',
             backgroundColor: Colors.green,
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {

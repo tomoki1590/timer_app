@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import 'countdown.dart';
+import 'home_page.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -17,21 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'TimerApp',
-      home: CountDown(),
+      home: HomePage(),
     );
   }
-}
-
-class Statasbar extends StatelessWidget implements PreferredSizeWidget {
-  const Statasbar({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.green,
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size(0.0, 0.0);
 }
