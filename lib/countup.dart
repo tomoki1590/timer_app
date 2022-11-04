@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class CountUp extends StatefulWidget {
-  
+  const CountUp({Key? key}) : super(key: key);
+
   @override
   State<CountUp> createState() => _CountUpState();
 }
@@ -47,10 +48,10 @@ class _CountUpState extends State<CountUp> {
               ),
               FloatingActionButton(
                   onPressed: () {
-                    _timer = Timer.periodic(const Duration(seconds: 60),
+                    _timer = Timer.periodic(const Duration(seconds: 1),
                         (Timer timer) {
                       setState(() {
-                        _time = _time.add(const Duration(seconds: 60));
+                        _time = _time.add(const Duration(seconds: 1));
                       });
                     });
                   },

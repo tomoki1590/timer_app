@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:timer_image_app/timer.dart';
 
-import 'countup.dart';
+import 'countdown.dart';
 import 'image.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key, required String title}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('あなたの時間')),
       body: Column(
-        children: [
-          ClockTimer(),
-          CountUp(),
-        ],
+        children: [ClockTimer(), const Text('erro')],
       ),
       floatingActionButton: SpeedDial(
         icon: Icons.list,
@@ -26,7 +28,9 @@ class HomePage extends StatelessWidget {
             child: const Icon(Icons.watch),
             label: '時間設定',
             backgroundColor: Colors.green,
-            onTap: () {},
+            onTap: () {
+              const CountDown();
+            },
           ),
           SpeedDialChild(
             child: const Icon(Icons.music_note),

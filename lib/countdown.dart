@@ -1,6 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+import 'package:intl/intl.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 class CountDown extends StatefulWidget {
   const CountDown({super.key});
@@ -9,10 +15,54 @@ class CountDown extends StatefulWidget {
   State<CountDown> createState() => _CountDownState();
 }
 
-class _CountDownState extends State<CountDown> {
-  int maxSeconds = 60;
-  int secounds = 60;
+Future<void> _setTime() async {
+  tz.initializeTimeZones();
+  var tokyo = tz.getLocation('Asia/Tokyo');
+  tz.setLocalLocation(tokyo);
+}
+
+class _CountDownState extends State<CountDown> with WidgetsBindingObserver {
+// //アイコンバッジの初期化
+//   @override
+//   void initState() {
+//     super.initState();
+//     WidgetsBinding.instance.addObserver(this);
+//     // _init();
+//   }
+
+  // Future<void> _init() async {
+  //   await _localTimeZone();
+  //   await _notification();
+  // }
+
+  // Future<void> _localTimeZone() async {
+  //   tz.initializeTimeZones();
+  //   final String currentTimeZone =
+  //       await FlutterNativeTimezone.getLocalTimezone();
+  //   tz.setLocalLocation(tz.getLocation(currentTimeZone!));
+  // }
+
+  // Future<void> _notification() async {
+
+  // }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      FlutterAppBadger.removeBadge();
+    }
+  }
+
+  int maxSeconds = 0;
+  int secounds = 0;
   Timer? timer;
+  DateTime timerTime = DateTime(0);
 
   void resetTimer() {
     setState(() {
@@ -31,6 +81,12 @@ class _CountDownState extends State<CountDown> {
         });
       } else {
         stopTimer(reset: false);
+        FlutterRingtonePlayer.play(
+          android: AndroidSounds.notification,
+          ios: IosSounds.alarm,
+          looping: true,
+          volume: 1.0,
+        );
       }
     });
   }
@@ -52,6 +108,19 @@ class _CountDownState extends State<CountDown> {
         children: [
           Center(child: buildTime()),
           Center(child: buildButtons()),
+          // TextButton(
+          //     onPressed: () async {
+          //       Picker(
+          //           adapter:
+          //               DateTimePickerAdapter(type: PickerDateTimeType.kHMS),
+          //           title: const Text("時間を設定してください"),
+          //           onConfirm: (Picker picker, List value) {
+          //             setState(() {
+          //               DateTime.utc(0, 0, 0);
+          //             });
+          //           }).showModal(context);
+          //     },
+          //     child: const Text('設定'))
         ],
       ),
     );
@@ -91,10 +160,19 @@ class _CountDownState extends State<CountDown> {
                 decoration: const InputDecoration(
                     hintText: '秒数を入力してください', filled: true),
                 keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
                 controller: timeController,
               ),
               ElevatedButton(
                   onPressed: () {
+                    FlutterRingtonePlayer.play(
+                      android: AndroidSounds.notification,
+                      ios: IosSounds.alarm,
+                      looping: true,
+                      volume: 1.0,
+                    );
+
                     maxSeconds = int.parse(timeController.text);
                     startTimer();
                   },
@@ -104,6 +182,11 @@ class _CountDownState extends State<CountDown> {
   }
 
   Widget buildTime() {
-    return Text('$secounds');
+    return Column(
+      children: [
+        Text('$secounds'),
+        Text(DateFormat.Hms().format(timerTime)),
+      ],
+    );
   }
 }
