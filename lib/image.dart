@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ImagePage extends StatefulWidget {
   const ImagePage({Key? key}) : super(key: key);
@@ -50,17 +51,28 @@ class _ImagePageState extends State<ImagePage> {
                 getImageFromGarally();
               },
               child: const Text('画像')),
-              Row(
-                          children: [
-                            Container(
-                              height: 200,
-                              width: 300,
-                              child: image == null
-                                  ? Text('画像が選ばれておりません')
-                                  : Image.file(image!),
-                            ),
-                          ],
-                        ),
+          Row(
+            children: [
+              SizedBox(
+                height: 200,
+                width: 300,
+                child: image == null
+                    ? const Text('画像が選ばれておりません')
+                    : Image.file(image!),
+              ),
+            ],
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final url = Uri.parse('https://www.Youtube.com');
+              if (await canLaunchUrl(url)) {
+                launchUrl(url);
+              } else {
+                print("この$urlはできないよ");
+              }
+            },
+            child: const Text('urlを開く'),
+          ),
         ],
       ),
     );
