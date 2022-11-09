@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:timer_image_app/countup.dart';
 import 'package:timer_image_app/timer.dart';
+import 'package:timer_image_app/stopwatch_timer.dart';
+import 'package:timer_image_app/youtube_test.dart';
 
 import 'countdown.dart';
 import 'image.dart';
@@ -47,7 +48,9 @@ class _HomePageState extends State<HomePage> {
             label: 'ストップウォッチ',
             backgroundColor: Colors.green,
             onTap: () {
-              const CountUp();
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const TimerTest();
+              }));
             },
           ),
           SpeedDialChild(
@@ -57,6 +60,16 @@ class _HomePageState extends State<HomePage> {
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return const ImagePage();
+              }));
+            },
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.music_note),
+            label: ' Youtube',
+            backgroundColor: Colors.green,
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const YoutubePlay();
               }));
             },
           ),
