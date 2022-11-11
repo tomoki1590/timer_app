@@ -20,6 +20,13 @@ def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
+ defaultConfig {
+        applicationId "com.example.firebase_sample"
+        minSdkVersion 21
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'

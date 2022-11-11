@@ -71,7 +71,9 @@ class _ImagePageState extends State<ImagePage> {
                 print("この$urlはできないよ");
               }
             },
-            child: const Text('urlを開く'),
+            child: Row(
+              children: const [Icon(Icons.live_tv), Text('Youtube')],
+            ),
           ),
         ],
       ),

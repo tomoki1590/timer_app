@@ -24,7 +24,7 @@ class _TimerTestState extends State<TimerTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('data')),
+        appBar: AppBar(title: const Text('ストップウォッチ')),
         body: Column(
           children: [
             StreamBuilder<int>(

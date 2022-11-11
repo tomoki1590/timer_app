@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:timer_image_app/acount/login.dart';
 import 'package:timer_image_app/timer.dart';
 import 'package:timer_image_app/stopwatch_timer.dart';
 import 'package:timer_image_app/youtube_test.dart';
@@ -20,7 +21,21 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('あなたの時間')),
+      appBar: AppBar(
+        title: const Text('あなたの時間'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.account_box),
+            tooltip: 'アカウント',
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) {
+                return const Login();
+              }));
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: Column(
           children: const [

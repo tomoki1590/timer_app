@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>475281848505-hul062mmp0qp0lf343kr7ceg5hthrl6b.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.475281848505-hul062mmp0qp0lf343kr7ceg5hthrl6b</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBEk26iFxuJKXvvoAIdwNqh5hmPecqugyg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>475281848505</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.timerImageApp</string>
+	<key>PROJECT_ID</key>
+	<string>timer-6e982</string>
+	<key>STORAGE_BUCKET</key>
+	<string>timer-6e982.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:475281848505:ios:4527a81907084c1107c368</string>
+</dict>
+</plist>
